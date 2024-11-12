@@ -19,7 +19,8 @@ public partial class StateMachine : Node
 
         }
         if ( newState == null ) return;
+		currentState.Notification(5002); // disable state
         currentState = newState;
-        currentState.Notification(5001);
+        currentState.Notification(5001); // enable state
     }
 }
