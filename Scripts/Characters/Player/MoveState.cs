@@ -4,26 +4,27 @@ using static Godot.TextServer;
 
 public partial class MoveState : PlayerState
 {
-    
+	[Export(PropertyHint.Range, "0,20,0.1")] private float speed = 5;
     public override void _PhysicsProcess( double delta ) {
         if ( characterNode.direction == Vector2.Zero ) {
-            characterNode.stateMachineNode.SwitchState<IdleState>();
+            characterNode.StateMachineNode.SwitchState<IdleState>();
 			return;
         }
 
 		characterNode.Velocity = new(characterNode.direction.X, 0, characterNode.direction.Y);
-		characterNode.Velocity *= 5;
+		characterNode.Velocity *= speed;
 		characterNode.MoveAndSlide();
 		characterNode.Flip();
 	}
   
 	public override void _Input(InputEvent @event) {
 		if (Input.IsActionJustPressed(GameConstants.INPUT_DASH)) {
-			characterNode.stateMachineNode.SwitchState<DashState>();
+			characterNode.StateMachineNode.SwitchState<DashState>();
 		}
 	}
 
 	protected override void EnterState() {
-		characterNode.animPlayerNode.Play(GameConstants.ANIM_MOVE);
+		base.EnterState();
+		characterNode.AnimPlayerNode.Play(GameConstants.ANIM_MOVE);
 	}
 }
