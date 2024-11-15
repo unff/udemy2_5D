@@ -16,7 +16,7 @@ public partial class StateMachine : Node
             if (state is T) {				// If this array member is the same type as the called type (T)
                 newState = state;			// set newState as this array member.
             }
-
+		// Node newState = states.Where((state) => state is T).FirstOrDefault();  // can also be done in System.Linq
         }
         if ( newState == null ) return; // character inspector is probably blank or the new state was not addced to the array there.
 		currentState.Notification(GameConstants.NOTIFICATION_EXIT_STATE);	// disable old currentState (send a 5002 godot notification)

@@ -15,11 +15,13 @@ public partial class EnemyReturnState : EnemyState
 			return;
 		}
 		Move();
-		characterNode.Flip();
 	}
 	protected override void EnterState() {
 		characterNode.AnimPlayerNode.Play(GameConstants.ANIM_MOVE);
 		characterNode.AgentNode.TargetPosition = destination;
-
+		characterNode.ChaseAreaNode.BodyEntered += HandleChaseAreaBodyEntered;
+	}
+	protected override void ExitState() {
+		characterNode.ChaseAreaNode.BodyEntered -= HandleChaseAreaBodyEntered;
 	}
 }

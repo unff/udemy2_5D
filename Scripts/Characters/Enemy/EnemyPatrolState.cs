@@ -10,7 +10,6 @@ public partial class EnemyPatrolState : EnemyState
 	public override void _PhysicsProcess(double delta) {
 		if (!idleTimerNode.IsStopped()) return;
 			Move();
-			characterNode.Flip();
 	}
 	protected override void EnterState() {
 		characterNode.AnimPlayerNode.Play(GameConstants.ANIM_MOVE);
@@ -19,6 +18,12 @@ public partial class EnemyPatrolState : EnemyState
 		characterNode.AgentNode.TargetPosition = destination;
 		characterNode.AgentNode.NavigationFinished += HandleNavigationFinished;
 		idleTimerNode.Timeout += HandleTimeout;
+		characterNode.ChaseAreaNode.BodyEntered += HandleChaseAreaBodyEntered;
+	}
+	protected override void ExitState() {
+		characterNode.AgentNode.NavigationFinished -= HandleNavigationFinished;
+		idleTimerNode.Timeout -= HandleTimeout;
+		characterNode.ChaseAreaNode.BodyEntered -= HandleChaseAreaBodyEntered;
 	}
 
 

@@ -21,10 +21,15 @@ public partial class CharacterState : Node
 		else if (what == GameConstants.NOTIFICATION_EXIT_STATE) {
 			SetPhysicsProcess(false);
 			SetProcessInput(false);
+			ExitState();
 		}
 	}
 
 	protected virtual void EnterState() {
+
+	}
+
+	protected virtual void ExitState() {
 
 	}
 }
